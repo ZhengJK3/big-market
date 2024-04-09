@@ -11,11 +11,39 @@
  Target Server Version : 80032
  File Encoding         : 65001
 
- Date: 09/04/2024 14:35:37
+ Date: 09/04/2024 15:40:53
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for award
+-- ----------------------------
+DROP TABLE IF EXISTS `award`;
+CREATE TABLE `award`  (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `award_id` int NOT NULL COMMENT '抽奖奖品ID - 内部流转使用',
+  `award_key` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '奖品对接标识 - 每一个都是一个对应的发奖策略',
+  `award_config` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '奖品配置信息',
+  `award_desc` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '奖品内容描述',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of award
+-- ----------------------------
+INSERT INTO `award` VALUES (1, 101, 'user_credit_random', '1,100', '用户积分【优先透彻规则范围，如果没有则走配置】', '2023-12-09 11:07:06', '2023-12-09 11:21:31');
+INSERT INTO `award` VALUES (2, 102, 'openai_use_count', '2', '增加抽奖次数', '2023-12-09 11:07:06', '2024-04-09 15:38:57');
+INSERT INTO `award` VALUES (3, 103, 'openai_use_count', '5', '增加抽奖次数', '2023-12-09 11:07:06', '2024-04-09 15:39:00');
+INSERT INTO `award` VALUES (4, 104, 'openai_use_count', '8', '增加抽奖次数', '2023-12-09 11:07:06', '2024-04-09 15:39:45');
+INSERT INTO `award` VALUES (5, 105, 'openai_model', '手机支架', '实物奖励', '2023-12-09 11:07:06', '2024-04-09 15:39:11');
+INSERT INTO `award` VALUES (6, 106, 'openai_model', '插排', '实物奖励', '2023-12-09 11:07:06', '2024-04-09 15:39:39');
+INSERT INTO `award` VALUES (7, 107, 'openai_model', '手表', '实物奖励', '2023-12-09 11:07:06', '2024-04-09 15:39:24');
+INSERT INTO `award` VALUES (8, 108, 'openai_use_count', '耳机', '实物奖励', '2023-12-09 11:07:06', '2024-04-09 15:39:27');
+INSERT INTO `award` VALUES (9, 109, 'openai_model', '手机', '实物奖励', '2023-12-09 11:07:06', '2024-04-09 15:39:33');
 
 -- ----------------------------
 -- Table structure for strategy
@@ -62,7 +90,7 @@ CREATE TABLE `strategy_award`  (
 INSERT INTO `strategy_award` VALUES (1, 10001, 101, '随机积分', NULL, 80000, 80000, 80.0000, 'rule_random', 1, '2024-04-08 21:39:37', '2024-04-08 21:54:10');
 INSERT INTO `strategy_award` VALUES (2, 10001, 102, '2次抽奖机会', NULL, 10000, 10000, 10.0000, NULL, 2, '2024-04-08 21:40:27', '2024-04-08 21:41:49');
 INSERT INTO `strategy_award` VALUES (3, 10001, 103, '5次抽奖机会', NULL, 5000, 5000, 5.0000, NULL, 3, '2024-04-08 21:41:33', '2024-04-08 21:41:53');
-INSERT INTO `strategy_award` VALUES (4, 10001, 104, '10次抽奖机会', NULL, 4000, 4000, 4.0000, NULL, 4, '2024-04-08 21:42:21', '2024-04-08 21:42:21');
+INSERT INTO `strategy_award` VALUES (4, 10001, 104, '8次抽奖机会', NULL, 4000, 4000, 4.0000, NULL, 4, '2024-04-08 21:42:21', '2024-04-09 15:40:02');
 INSERT INTO `strategy_award` VALUES (5, 10001, 105, '手机支架', NULL, 600, 600, 0.6000, NULL, 5, '2024-04-08 21:43:14', '2024-04-08 22:11:45');
 INSERT INTO `strategy_award` VALUES (6, 10001, 106, '洗衣液', '', 200, 200, 0.2000, NULL, 6, '2024-04-08 21:43:43', '2024-04-08 22:11:55');
 INSERT INTO `strategy_award` VALUES (7, 10001, 107, '手表', '抽奖10次后解锁', 100, 100, 0.1000, 'rule_lock,rule_luck_award', 7, '2024-04-08 21:44:12', '2024-04-08 22:13:12');
