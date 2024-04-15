@@ -1,6 +1,6 @@
 package cn.chaZ.infrastructure.persistent.dao;
 
-import cn.chaZ.infrastructure.persistent.po.Award;
+import cn.chaZ.infrastructure.persistent.po.StrategyAward;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,5 +14,7 @@ import java.util.List;
 
 @Mapper
 public interface IStrategyAwardDao {
-    List<Award> queryStrategyAwardList();
+    List<StrategyAward> queryStrategyAwardList();
+
+    List<StrategyAward> queryStrategyAwardListByStrategyId(Long strategyId);
 }

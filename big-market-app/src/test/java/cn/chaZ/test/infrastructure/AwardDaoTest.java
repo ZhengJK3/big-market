@@ -3,6 +3,7 @@ package cn.chaZ.test.infrastructure;
 import cn.chaZ.infrastructure.persistent.dao.IAwardDao;
 import cn.chaZ.infrastructure.persistent.dao.IStrategyAwardDao;
 import cn.chaZ.infrastructure.persistent.po.Award;
+import cn.chaZ.infrastructure.persistent.po.StrategyAward;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -30,7 +31,7 @@ public class AwardDaoTest {
 
     @Test
     public void test_queryAwardList(){
-        List<Award> awards = strategyAwardDao.queryStrategyAwardList();
+        List<StrategyAward> awards = strategyAwardDao.queryStrategyAwardList();
         log.info("测试结果：{}", JSON.toJSONString(awards));
 
     }
