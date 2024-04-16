@@ -1,6 +1,7 @@
 package cn.chaZ.infrastructure.persistent.dao;
 
 import cn.chaZ.infrastructure.persistent.po.Award;
+import cn.chaZ.infrastructure.persistent.po.StrategyRule;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -15,4 +16,7 @@ import java.util.List;
 @Mapper
 public interface IStrategyRuleDao {
     List<Award> queryStrategyRuleList();
+
+    StrategyRule queryStrategyRule(StrategyRule strategyRuleReq);
+
 }

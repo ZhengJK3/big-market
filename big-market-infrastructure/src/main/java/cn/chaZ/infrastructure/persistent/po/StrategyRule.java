@@ -15,7 +15,7 @@ public class StrategyRule {
     /** 自增ID */
     private Long id;
     /** 抽奖策略ID */
-    private Integer strategyId;
+    private Long strategyId;
     /** 抽奖奖品ID */
     private Integer awardId;
     /** 抽奖规则类型【1-策略规则，2-奖品规则】 */
