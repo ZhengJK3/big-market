@@ -1,4 +1,4 @@
-package cn.chaZ.domain.strategy.service.rule;
+package cn.chaZ.domain.strategy.service.rule.filter;
 
 import cn.chaZ.domain.strategy.model.entity.RuleActionEntity;
 import cn.chaZ.domain.strategy.model.entity.RuleMatterEntity;
