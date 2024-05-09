@@ -16,7 +16,7 @@ import static cn.chaZ.domain.strategy.model.valobj.RuleLimitTypeVO.*;
 
 /**
  * @program: big-market
- * @description:
+ * @description: 决策树引擎
  * @author: chaZ
  * @create: 2024-04-24 19:59
  **/
@@ -33,8 +33,9 @@ public class DecisionTreeEngine implements IDecisionTreeEngine {
     }
 
     @Override
-    public DefaultTreeFactory.StrategyAwardData process(String userId, Long strategyId, Integer awardId) {
-        DefaultTreeFactory.StrategyAwardData strategyAwardData = null;
+    public DefaultTreeFactory.StrategyAwardVO process(String userId, Long strategyId, Integer awardId) {
+        DefaultTreeFactory.StrategyAwardVO strategyAwardData = null;
+
 
         // 获取基础信息
         String nextNode = ruleTreeVO.getTreeRootRuleNode();
@@ -49,7 +50,7 @@ public class DecisionTreeEngine implements IDecisionTreeEngine {
             // 决策节点计算
             DefaultTreeFactory.TreeActionEntity logicEntity = logicTreeNode.logic(userId, strategyId, awardId);
             RuleLogicCheckTypeVO ruleLogicCheckTypeVO = logicEntity.getRuleLogicCheckType();
-            strategyAwardData = logicEntity.getStrategyAwardData();
+            strategyAwardData = logicEntity.getStrategyAwardVO();
             log.info("决策树引擎【{}】treeId:{} node:{} code:{}", ruleTreeVO.getTreeName(), ruleTreeVO.getTreeId(), nextNode, ruleLogicCheckTypeVO.getCode());
 
             // 获取下个节点

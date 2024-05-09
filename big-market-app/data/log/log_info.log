@@ -1,14 +1,24 @@
-24-04-24.20:48:32.848 [main            ] INFO  LogicTreeTest          - Starting LogicTreeTest using Java 1.8.0_402 on DESKTOP-QJ7QPEK with PID 10680 (started by kkk in G:\IdeaProjects\big-market\big-market-app)
-24-04-24.20:48:32.849 [main            ] INFO  LogicTreeTest          - The following 1 profile is active: "dev"
-24-04-24.20:48:33.898 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-24-04-24.20:48:33.902 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-24-04-24.20:48:33.946 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
-24-04-24.20:48:35.373 [main            ] INFO  Version                - Redisson 3.23.4
-24-04-24.20:48:35.836 [redisson-netty-2-4] INFO  MasterPubSubConnectionPool - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
-24-04-24.20:48:35.850 [redisson-netty-2-13] INFO  MasterConnectionPool   - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
-24-04-24.20:48:37.690 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
-24-04-24.20:48:37.748 [main            ] INFO  LogicTreeTest          - Started LogicTreeTest in 5.391 seconds (JVM running for 6.563)
-24-04-24.20:48:38.203 [main            ] INFO  DecisionTreeEngine     - 决策树引擎【决策树规则；增加dall-e-3画图模型】treeId:100000001 node:rule_lock code:0000
-24-04-24.20:48:38.204 [main            ] INFO  DecisionTreeEngine     - 决策树引擎【决策树规则；增加dall-e-3画图模型】treeId:100000001 node:rule_stock code:0001
-24-04-24.20:48:38.206 [main            ] INFO  DecisionTreeEngine     - 决策树引擎【决策树规则；增加dall-e-3画图模型】treeId:100000001 node:rule_luck_award code:0001
-24-04-24.20:48:38.375 [main            ] INFO  LogicTreeTest          - 测试结果：{"awardId":101,"awardRuleValue":"1,100"}
+24-05-09.20:38:53.830 [main            ] INFO  RaffleStrategyTest     - Starting RaffleStrategyTest using Java 1.8.0_402 on DESKTOP-QJ7QPEK with PID 16524 (started by kkk in G:\IdeaProjects\big-market\big-market-app)
+24-05-09.20:38:53.831 [main            ] INFO  RaffleStrategyTest     - The following 1 profile is active: "dev"
+24-05-09.20:38:54.835 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+24-05-09.20:38:54.838 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+24-05-09.20:38:54.875 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 23 ms. Found 0 Redis repository interfaces.
+24-05-09.20:38:56.298 [main            ] INFO  Version                - Redisson 3.23.4
+24-05-09.20:38:56.755 [redisson-netty-2-4] INFO  MasterPubSubConnectionPool - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+24-05-09.20:38:56.768 [redisson-netty-2-13] INFO  MasterConnectionPool   - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+24-05-09.20:38:58.568 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+24-05-09.20:38:58.627 [main            ] INFO  RaffleStrategyTest     - Started RaffleStrategyTest in 5.194 seconds (JVM running for 6.128)
+24-05-09.20:38:59.123 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+24-05-09.20:38:59.618 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+24-05-09.20:38:59.667 [main            ] INFO  RaffleStrategyTest     - 测试结果：true
+24-05-09.20:38:59.680 [main            ] INFO  RaffleStrategyTest     - 测试结果：true
+24-05-09.20:38:59.687 [main            ] INFO  DefaultLogicChain      - 抽奖责任链-默认处理 userId: chaZ strategyId: 100006 ruleModel: rule_default awardId: 102
+24-05-09.20:38:59.688 [main            ] INFO  AbstractRaffleStrategy - 抽奖策略计算-责任链 chaZ 100006 102 rule_default
+24-05-09.20:38:59.704 [main            ] INFO  DecisionTreeEngine     - 决策树引擎【规则树】treeId:tree_lock node:rule_lock code:0000
+24-05-09.20:38:59.705 [main            ] INFO  DecisionTreeEngine     - 决策树引擎【规则树】treeId:tree_lock node:rule_stock code:0001
+24-05-09.20:38:59.706 [main            ] INFO  DecisionTreeEngine     - 决策树引擎【规则树】treeId:tree_lock node:rule_luck_award code:0001
+24-05-09.20:38:59.706 [main            ] INFO  AbstractRaffleStrategy - 抽奖策略计算-规则树 chaZ 100006 101 1,100
+24-05-09.20:38:59.868 [main            ] INFO  RaffleStrategyTest     - 请求参数：{"strategyId":100006,"userId":"chaZ"}
+24-05-09.20:38:59.871 [main            ] INFO  RaffleStrategyTest     - 测试结果：{"awardConfig":"1,100","awardId":101}
+24-05-09.20:38:59.897 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+24-05-09.20:38:59.910 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
