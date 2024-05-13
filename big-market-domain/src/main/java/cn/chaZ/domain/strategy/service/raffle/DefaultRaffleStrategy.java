@@ -1,12 +1,5 @@
 package cn.chaZ.domain.strategy.service.raffle;
 
-/**
- * @program: big-market
- * @description:
- * @author: chaZ
- * @create: 2024-04-17 10:02
- **/
-
 import cn.chaZ.domain.strategy.model.entity.StrategyAwardEntity;
 import cn.chaZ.domain.strategy.model.valobj.RuleTreeVO;
 import cn.chaZ.domain.strategy.model.valobj.StrategyAwardRuleModelVO;
@@ -25,12 +18,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
- * @description 默认的抽奖策略实现
- * @create 2024-01-06 11:46
- */
+ * @program: big-market
+ * @description: 默认的抽奖策略实现
+ * @author: chaZ
+ * @create: 2024-04-17 10:02
+ **/
+
 @Slf4j
 @Service
 public class DefaultRaffleStrategy extends AbstractRaffleStrategy implements IRaffleStock, IRaffleAward {
