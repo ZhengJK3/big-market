@@ -19,8 +19,7 @@
 
     <select id="queryStrategyAwardList" resultMap="CaseMap">
         SELECT strategy_id
-        FROM strategy_award
-        LIMIT 10
+        FROM strategy_award LIMIT 10
     </select>
 
     <select id="queryStrategyAwardListByStrategyId" parameterType="java.lang.Long" resultMap="CaseMap">
@@ -29,15 +28,36 @@
         where strategy_id = #{strategy_id}
     </select>
 
-    <select id="queryStrategyAwardRuleModels" parameterType="cn.chaZ.infrastructure.persistent.po.StrategyAward" resultType="java.lang.String">
-        select rule_models from strategy_award
-        where strategy_id = #{strategyId} and award_id = #{awardId}
+    <select id="queryStrategyAwardRuleModels" parameterType="cn.chaZ.infrastructure.persistent.po.StrategyAward"
+            resultType="java.lang.String">
+        select rule_models
+        from strategy_award
+        where strategy_id = #{strategyId}
+          and award_id = #{awardId}
     </select>
 
     <update id="updateStrategyAwardStock" parameterType="cn.chaZ.infrastructure.persistent.po.StrategyAward">
         update strategy_award
         set award_count_surplus = award_count_surplus - 1
-        where strategy_id = #{strategyId} and award_id = #{awardId} and award_count_surplus > 0
+        where strategy_id = #{strategyId}
+          and award_id = #{awardId}
+          and award_count_surplus > 0
     </update>
+
+    <select id="queryStrategyAward" parameterType="cn.chaZ.infrastructure.persistent.po.StrategyAward"
+            resultMap="CaseMap">
+        select strategy_id,
+               award_id,
+               award_title,
+               award_subtitle,
+               award_count,
+               award_count_surplus,
+               award_rate,
+               rule_models,
+               sort
+        from strategy_award
+        where strategy_id = #{strategyId}
+          and award_id = #{awardId}
+    </select>
 
 </mapper>

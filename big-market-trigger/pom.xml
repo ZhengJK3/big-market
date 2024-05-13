@@ -36,6 +36,10 @@
             <groupId>cn.chaZ</groupId>
             <artifactId>big-market-domain</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.chaZ</groupId>
+            <artifactId>big-market-api</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

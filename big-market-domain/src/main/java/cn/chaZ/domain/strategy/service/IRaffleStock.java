@@ -4,9 +4,9 @@ import cn.chaZ.domain.strategy.model.valobj.StrategyAwardStockKeyVO;
 
 /**
  * @program: big-market
- * @description:
+ * @description: 抽奖库存相关服务，获取库存消耗队列
  * @author: chaZ
- * @create: 2024-05-10 15:24
+ * @create: 2024-04-28 15:24
  **/
 
 public interface IRaffleStock {
