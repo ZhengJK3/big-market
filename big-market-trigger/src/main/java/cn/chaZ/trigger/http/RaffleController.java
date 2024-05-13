@@ -87,7 +87,7 @@ public class RaffleController implements IRaffleService {
             List<RaffleAwardListResponseDTO> raffleAwardListResponseDTOS = new ArrayList<>(strategyAwardEntities.size());
             for (StrategyAwardEntity strategyAward : strategyAwardEntities) {
                 raffleAwardListResponseDTOS.add(RaffleAwardListResponseDTO.builder()
-                        .awardID(strategyAward.getAwardId())
+                        .awardId(strategyAward.getAwardId())
                         .awardTitle(strategyAward.getAwardTitle())
                         .awardSubTitle(strategyAward.getAwardSubTitle())
                         .sort(strategyAward.getSort())
