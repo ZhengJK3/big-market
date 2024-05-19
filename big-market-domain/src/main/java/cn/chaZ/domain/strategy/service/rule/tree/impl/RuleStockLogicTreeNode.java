@@ -37,7 +37,7 @@ public class RuleStockLogicTreeNode implements ILogicTreeNode {
                 log.info("规则过滤-库存扣减-成功 userId:{} strategyId:{} awardId:{}", userId, strategyId, awardId);
 
                 // 写入延迟队列，延迟消费更新数据库记录。【在trigger的job；UpdateAwardStockJob 下消费队列，更新数据库记录】
-                strategyRepository.awardStockConsumeSendQueue(StrategyAwardStockKeyVO.builder()
+                strategyRepository.awardStockConsumeSendMQ(StrategyAwardStockKeyVO.builder()
                         .strategyId(strategyId)
                         .awardId(awardId)
                         .build());

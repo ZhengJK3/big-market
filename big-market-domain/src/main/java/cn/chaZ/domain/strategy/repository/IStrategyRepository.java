@@ -3,6 +3,7 @@ package cn.chaZ.domain.strategy.repository;
 import cn.chaZ.domain.strategy.model.entity.StrategyAwardEntity;
 import cn.chaZ.domain.strategy.model.entity.StrategyEntity;
 import cn.chaZ.domain.strategy.model.entity.StrategyRuleEntity;
+import cn.chaZ.domain.strategy.model.valobj.FailedMessageRecordVO;
 import cn.chaZ.domain.strategy.model.valobj.RuleTreeVO;
 import cn.chaZ.domain.strategy.model.valobj.StrategyAwardRuleModelVO;
 import cn.chaZ.domain.strategy.model.valobj.StrategyAwardStockKeyVO;
@@ -68,7 +69,12 @@ public interface IStrategyRepository {
      * @param strategyAwardStockKeyVO 对象值对象
      */
     void awardStockConsumeSendQueue(StrategyAwardStockKeyVO strategyAwardStockKeyVO);
-
+    /**
+     * 写入奖品库存RocketMQ消费队列
+     *
+     * @param strategyAwardStockKeyVO 对象值对象
+     */
+    void awardStockConsumeSendMQ(StrategyAwardStockKeyVO strategyAwardStockKeyVO);
     /**
      * 获取奖品库存消费队列
      */
@@ -90,6 +96,35 @@ public interface IStrategyRepository {
      * @return 奖品信息
      */
     StrategyAwardEntity queryStrategyAwardEntity(Long strategyId, Integer awardId);
+
+    /**
+     * 找到所有要重新发送的消息
+     *
+     * @return 奖品信息
+     */
+    List<FailedMessageRecordVO> queryFailedMessageRecord();
+    /**
+     * 将发送失败的消息存储到数据库
+     *
+     * @param failedMessageRecordVO 发送失败的消息
+     * @return 奖品信息
+     */
+    void insertFailedMessageRecord(FailedMessageRecordVO failedMessageRecordVO);
+    /**
+     * 处理发送失败的消息后将消息从数据库中删除
+     *
+     * @param messageId 要删除的消息ID
+     * @return 奖品信息
+     */
+    void deleteFailedMessageRecord(String messageId);
+
+    /**
+     * 处理发送失败的消息后将消息从数据库中删除
+     *
+     * @param failedMessageRecordVO 要重新发送的消息
+     * @return 奖品信息
+     */
+    void reSendFailedMessage(FailedMessageRecordVO failedMessageRecordVO);
 
 
 }

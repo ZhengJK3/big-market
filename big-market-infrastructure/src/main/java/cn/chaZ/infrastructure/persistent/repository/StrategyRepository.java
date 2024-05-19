@@ -1,11 +1,13 @@
 package cn.chaZ.infrastructure.persistent.repository;
 
+import cn.chaZ.domain.strategy.event.RaffleEvent;
 import cn.chaZ.domain.strategy.model.entity.StrategyAwardEntity;
 import cn.chaZ.domain.strategy.model.entity.StrategyEntity;
 import cn.chaZ.domain.strategy.model.entity.StrategyRuleEntity;
 import cn.chaZ.domain.strategy.model.valobj.*;
 import cn.chaZ.domain.strategy.repository.IStrategyRepository;
 import cn.chaZ.infrastructure.persistent.dao.*;
+import cn.chaZ.infrastructure.persistent.event.IEventPublisher;
 import cn.chaZ.infrastructure.persistent.po.*;
 import cn.chaZ.infrastructure.persistent.redis.IRedisService;
 import cn.chaZ.types.common.Constants;
@@ -17,10 +19,7 @@ import org.redisson.api.RDelayedQueue;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 
@@ -48,6 +47,12 @@ public class StrategyRepository implements IStrategyRepository {
     private IRuleTreeNodeDao ruleTreeNodeDao;
     @Resource
     private IRuleTreeNodeLineDao ruleTreeNodeLineDao;
+    @Resource
+    private IFailedMessageRecordDao failedMessageRecordDao;
+
+    @Resource
+    private IEventPublisher eventPublisher;
+
 
     @Override
     public List<StrategyAwardEntity> queryStrategyAwardList(Long strategyId) {
@@ -248,6 +253,12 @@ public class StrategyRepository implements IStrategyRepository {
     }
 
     @Override
+    public void awardStockConsumeSendMQ(StrategyAwardStockKeyVO strategyAwardStockKeyVO) {
+        eventPublisher.publishDelivery(RaffleEvent.TOPIC, RaffleEvent.create(strategyAwardStockKeyVO), 2);
+    }
+
+
+    @Override
     public StrategyAwardStockKeyVO takeQueueValue() throws InterruptedException {
         String cacheKey = Constants.RedisKey.STRATEGY_AWARD_COUNT_QUERY_KEY;
         RBlockingQueue<StrategyAwardStockKeyVO> destinationQueue = redisService.getBlockingQueue(cacheKey);
@@ -289,5 +300,51 @@ public class StrategyRepository implements IStrategyRepository {
         // 返回数据
         return strategyAwardEntity;
     }
+
+
+    @Override
+    public List<FailedMessageRecordVO> queryFailedMessageRecord() {
+        List<FailedMessageRecord> failedMessageRecordList = failedMessageRecordDao.queryFailedMessageRecord();
+        List<FailedMessageRecordVO> failedMessageRecordVOList = new ArrayList<>(failedMessageRecordList.size());
+        for (FailedMessageRecord failedMessageRecord : failedMessageRecordList) {
+            failedMessageRecordVOList.add(FailedMessageRecordVO.builder()
+                    .topic(failedMessageRecord.getTopic())
+                    .messageId(failedMessageRecord.getMessageId())
+                    .messageTimestamp(failedMessageRecord.getMessageTimestamp())
+                    .strategyId(failedMessageRecord.getStrategyId())
+                    .awardId(failedMessageRecord.getAwardId())
+                    .build());
+        }
+        return failedMessageRecordVOList;
+    }
+
+    @Override
+    public void insertFailedMessageRecord(FailedMessageRecordVO failedMessageRecordVO) {
+        log.info("保存发送失败的信息。");
+        failedMessageRecordDao.insertFailedMessageRecord(FailedMessageRecord.builder()
+                .topic(failedMessageRecordVO.getTopic())
+                .messageId(failedMessageRecordVO.getMessageId())
+                .messageTimestamp(failedMessageRecordVO.getMessageTimestamp())
+                .strategyId(failedMessageRecordVO.getStrategyId())
+                .awardId(failedMessageRecordVO.getAwardId())
+                .createTime(new Date())
+                .build());
+    }
+
+    @Override
+    public void deleteFailedMessageRecord(String messageId) {
+        log.info("删除重新发送的信息。");
+        failedMessageRecordDao.deleteFailedMessageRecord(messageId);
+    }
+
+    @Override
+    public void reSendFailedMessage(FailedMessageRecordVO failedMessageRecordVO) {
+        log.info("重新发送信息。");
+        StrategyAwardStockKeyVO strategyAwardStockKeyVO = new StrategyAwardStockKeyVO(failedMessageRecordVO.getStrategyId(), failedMessageRecordVO.getAwardId());
+        RaffleEvent raffleEvent = RaffleEvent.recreate(failedMessageRecordVO.getMessageId(),
+                failedMessageRecordVO.getMessageTimestamp(), strategyAwardStockKeyVO);
+        eventPublisher.publishDelivery(failedMessageRecordVO.getTopic(), raffleEvent, 2);
+    }
+
 
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.chaZ.infrastructure.persistent.dao.IFailedMessageRecordDao">
+
+    <resultMap id="dataMap" type="cn.chaZ.infrastructure.persistent.po.FailedMessageRecord">
+        <id column="id" property="id"/>
+        <result column="topic" property="topic"/>
+        <result column="message_id" property="messageId"/>
+        <result column="message_timestamp" property="messageTimestamp"/>
+        <result column="strategy_id" property="strategyId"/>
+        <result column="award_id" property="awardId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="queryFailedMessageRecordByMessageId" parameterType="java.lang.String" resultMap="dataMap">
+        select *
+        from failed_message_record
+        where message_id = #{messageId}
+    </select>
+
+    <select id="queryFailedMessageRecord" resultMap="dataMap">
+        select *
+        from failed_message_record
+        limit 1
+    </select>
+
+    <insert id="insertFailedMessageRecord" parameterType="cn.chaZ.infrastructure.persistent.po.FailedMessageRecord">
+        insert into failed_message_record(topic, message_id, message_timestamp, strategy_id, award_id, create_time)
+        values (#{topic}, #{messageId}, #{messageTimestamp}, #{strategyId}, #{awardId}, #{createTime})
+    </insert>
+
+    <delete id="deleteFailedMessageRecord" parameterType="java.lang.String">
+        delete
+        from failed_message_record
+        where message_id = #{message_id};
+    </delete>
+
+</mapper>

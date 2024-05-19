@@ -84,6 +84,7 @@
         </dependency>
 
 
+
         <!-- 工程模块；启动依赖 trigger->domain, infrastructure-->
         <dependency>
             <groupId>cn.chaZ</groupId>
