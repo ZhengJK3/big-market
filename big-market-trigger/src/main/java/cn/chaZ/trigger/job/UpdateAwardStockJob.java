@@ -72,7 +72,7 @@ public class UpdateAwardStockJob implements RocketMQListener<String> {
         }
     }
 
-    @Scheduled(cron = "0/8 * * * * ?")
+    @Scheduled(cron = "* 0/5 * * * ? ")
     public void retryFailedMessages() {
         log.info("定时任务，扫描MQ发送失败记录");
         List<FailedMessageRecordVO> failedMessageRecordVOList = strategyRepository.queryFailedMessageRecord();

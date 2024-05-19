@@ -59,7 +59,7 @@ public class EventPublisher implements IEventPublisher{
 
 
     public void publishDelivery(String topic, RaffleEvent message, int delayTimeLevel) {
-        int retryCount = 0;
+        int retryCount = 3;
         while (retryCount > 0) {
             try {
                 String mqMessage = JSON.toJSONString(message);
